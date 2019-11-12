@@ -1,0 +1,7 @@
+#!/bin/bash
+gcc codifica.c -o codifica
+gcc canal.c -o canal
+gcc decodifica.c -o decodifica
+#./codifica textoPrueba | ./canal 100
+./decodifica
+#echo hi
