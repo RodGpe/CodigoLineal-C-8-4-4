@@ -2,6 +2,8 @@
 gcc codifica.c -o codifica
 gcc canal.c -o canal
 gcc decodifica.c -o decodifica
+#./codifica textoPrueba
 #./codifica textoPrueba | ./canal 100
-./decodifica
+./codifica textoPrueba | ./canal 100 | ./decodifica
+#./decodifica
 #echo hi

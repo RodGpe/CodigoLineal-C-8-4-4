@@ -23,7 +23,7 @@ main(argc, argv)
 int argc;
 char *argv[];
 {
-    printf("aloo");
+    //printf("aloo");
     FILE *fp;
     int c;
     if ((fp = fopen(argv[1], "r")) == NULL)
