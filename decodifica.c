@@ -25,6 +25,16 @@ unsigned char Errores[16] = {
     0x10  //f
 };
 
+int pesoHamming(unsigned char n)
+{
+    unsigned int c;
+    for (c = 0; n; n >>= 1)
+    {
+        c += n & 1;
+    }
+    return c;
+}
+
 unsigned char decodificar(unsigned char H[4], unsigned char palabra) //no es un buen nombre porque sí corrigue
 {
     unsigned int suma = 0;
@@ -54,7 +64,7 @@ unsigned char decodificar(unsigned char H[4], unsigned char palabra) //no es un 
     {
         printf("%x", palabra);
     }
-    unsigned char palabraCorregida= palabra;
+    unsigned char palabraCorregida = palabra;
     return palabraCorregida;
 }
 
@@ -73,9 +83,33 @@ char *argv[];
         printf("Unable to create file.\n");
         exit(EXIT_FAILURE);
     }
+    //---------para escribir los vectores recividos
+    FILE *fpVR;
+    fpVR = fopen("./VectoresRecibidos.txt", "w");
+    if (fpVR == NULL)
+    {
+        /* File not created hence exit */
+        printf("Unable to create file.\n");
+        exit(EXIT_FAILURE);
+    }
+    //-------fin para vectores recibidos
+    //---------para escribir los vectores DECODIFICADOS
+    FILE *fpDEC;
+    fpDEC = fopen("./VectoresDecodificados.txt", "w");
+    if (fpDEC == NULL)
+    {
+        /* File not created hence exit */
+        printf("Unable to create file.\n");
+        exit(EXIT_FAILURE);
+    }
+    //-------fin para vectores DECODIFICADOS
+    int contadorVectores = 0;
     while ((c = getchar()) != EOF)
     {
-        c = decodificar(H,c);
+        fprintf(fpVR, "%c", c); //para escribir los vectores recibidos
+        contadorVectores++;
+        c = decodificar(H, c);
+        fprintf(fpDEC, "%c", c); //para escribir los vectores decodificados
         //    putchar(c);
         if (primerMitad)
         {
@@ -92,16 +126,13 @@ char *argv[];
         }
     }
     fclose(fp);
-    //int i, c, invp, e;
-    //
-    //srand((int) getpid());
-    //invp = atoi(argv[1]);
-    //while ((c=getchar()) != EOF){
-    //    e = 0 ;
-    //    for (i = 0; i < N; i++)
-    //        if(!(rand()%invp)) e ^= (1<<i);
-    //    putchar(c^e);
-    //}
-    //printf("\n\n\n hi");
-    ////return;
+    fclose(fpVR);
+    fclose(fpDEC);
+    printf(" El numero de vectores  fue : %d \n", contadorVectores);
+    //------------pruebas de peso de hammng
+    //unsigned char peso = 0x00;
+    //unsigned char pesoPrueba = pesoHamming(peso);
+    //printf(" peso de hamming es = %d", pesoPrueba);
+    //------------fin de pruebas de peso de hamming
+    //return;
 }

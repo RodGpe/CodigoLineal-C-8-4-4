@@ -2,8 +2,10 @@
 gcc codifica.c -o codifica
 gcc canal.c -o canal
 gcc decodifica.c -o decodifica
-#./codifica textoPrueba
-#./codifica textoPrueba | ./canal 100
-./codifica textoPrueba | ./canal 100 | ./decodifica
+#./codifica entrada.txt
+#./codifica entrada.txt | ./canal 100
+#./codifica entrada.txt | ./canal 100 | ./decodifica 
+./codifica pursuit-evasion.pdf | ./canal 100 | ./decodifica
 #./decodifica
-#echo hi
+gcc estadisticos.c -o estadisticos
+./estadisticos VectoresCodificados.txt VectoresRecibidos.txt VectoresDecodificados.txt
