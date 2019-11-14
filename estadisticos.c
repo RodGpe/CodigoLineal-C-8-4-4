@@ -39,30 +39,50 @@ char *argv[];
     unsigned int d = 0;
     unsigned int diferenciaX_Xprima = 0;
     unsigned int diferenciaX_Xdeco = 0;
-    int erroresPeso[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int erroresPesoX_Xprima[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     int erroresPesoX_Xdeco[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-    
+    //---para las A----
+    unsigned int cA = 0;
+    unsigned int rA = 0;
+    unsigned int dA = 0;
+    unsigned int diferenciaA_Aprima = 0;
+    unsigned int diferenciaA_Adeco = 0;
+    int erroresPesoA_Aprima[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int erroresPesoA_Adeco[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    //---fin de para las A---
+
     while ((c = fgetc(fpCodificados)) != EOF)
     {
+        cA = (c >> 4) & 0x0f;
         r = fgetc(fpRecibidos);
+        rA = (r >> 4) & 0x0f;
         d = fgetc(fpDecodificados);
+        dA = (d >> 4) & 0xff;
         diferenciaX_Xprima = c ^ r;
-        diferenciaX_Xdeco= c ^ d;
-        pesoHamming(diferenciaX_Xprima);
-        pesoHamming(diferenciaX_Xdeco);
-        erroresPeso[pesoHamming(diferenciaX_Xprima)]++;
+        diferenciaX_Xdeco = c ^ d;
+        diferenciaA_Aprima = cA ^ rA;
+        diferenciaA_Adeco = cA ^ dA;
+        //pesoHamming(diferenciaX_Xprima);
+        //pesoHamming(diferenciaX_Xdeco);
+        //pesoHamming(diferenciaA_Aprima);
+        //pesoHamming(diferenciaA_Adeco);
+        erroresPesoX_Xprima[pesoHamming(diferenciaX_Xprima)]++;
         erroresPesoX_Xdeco[pesoHamming(diferenciaX_Xdeco)]++;
+
+        erroresPesoA_Aprima[pesoHamming(diferenciaA_Aprima)]++;
+        erroresPesoA_Adeco[pesoHamming(diferenciaA_Adeco)]++;
     }
-    printf("%d\n", erroresPeso[0]);
-    printf("%d\n", erroresPeso[1]);
-    printf("%d\n", erroresPeso[2]);
-    printf("%d\n", erroresPeso[3]);
-    printf("%d\n", erroresPeso[4]);
-    printf("%d\n", erroresPeso[5]);
-    printf("%d\n", erroresPeso[6]);
-    printf("%d\n", erroresPeso[7]);
-    printf("%d\n", erroresPeso[8]);
-    printf("-----------------\n");
+    printf("\n___(X-X')____'\n");
+    printf("%d\n", erroresPesoX_Xprima[0]);
+    printf("%d\n", erroresPesoX_Xprima[1]);
+    printf("%d\n", erroresPesoX_Xprima[2]);
+    printf("%d\n", erroresPesoX_Xprima[3]);
+    printf("%d\n", erroresPesoX_Xprima[4]);
+    printf("%d\n", erroresPesoX_Xprima[5]);
+    printf("%d\n", erroresPesoX_Xprima[6]);
+    printf("%d\n", erroresPesoX_Xprima[7]);
+    printf("%d\n", erroresPesoX_Xprima[8]);
+    printf("___(X-X^)____\n");
     printf("%d\n", erroresPesoX_Xdeco[0]);
     printf("%d\n", erroresPesoX_Xdeco[1]);
     printf("%d\n", erroresPesoX_Xdeco[2]);
@@ -71,7 +91,28 @@ char *argv[];
     printf("%d\n", erroresPesoX_Xdeco[5]);
     printf("%d\n", erroresPesoX_Xdeco[6]);
     printf("%d\n", erroresPesoX_Xdeco[7]);
-    
+    printf("%d\n", erroresPesoX_Xdeco[8]);
+    printf("___(A-A')____\n");
+    printf("%d\n", erroresPesoA_Aprima[0]);
+    printf("%d\n", erroresPesoA_Aprima[1]);
+    printf("%d\n", erroresPesoA_Aprima[2]);
+    printf("%d\n", erroresPesoA_Aprima[3]);
+    printf("%d\n", erroresPesoA_Aprima[4]);
+    printf("%d\n", erroresPesoA_Aprima[5]);
+    printf("%d\n", erroresPesoA_Aprima[6]);
+    printf("%d\n", erroresPesoA_Aprima[7]);
+    printf("%d\n", erroresPesoA_Aprima[8]);
+    printf("___(A-A^)____\n");
+    printf("%d\n", erroresPesoA_Adeco[0]);
+    printf("%d\n", erroresPesoA_Adeco[1]);
+    printf("%d\n", erroresPesoA_Adeco[2]);
+    printf("%d\n", erroresPesoA_Adeco[3]);
+    printf("%d\n", erroresPesoA_Adeco[4]);
+    printf("%d\n", erroresPesoA_Adeco[5]);
+    printf("%d\n", erroresPesoA_Adeco[6]);
+    printf("%d\n", erroresPesoA_Adeco[7]);
+    printf("%d\n", erroresPesoA_Adeco[8]);
+
     fclose(fpCodificados);
     fclose(fpRecibidos);
     fclose(fpDecodificados);
