@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <float.h>
 
 int pesoHamming(unsigned int n)
 {
@@ -112,6 +113,46 @@ char *argv[];
     printf("%d\n", erroresPesoA_Adeco[6]);
     printf("%d\n", erroresPesoA_Adeco[7]);
     printf("%d\n", erroresPesoA_Adeco[8]);
+
+    float bitsEnError = 0;
+    bitsEnError =
+        erroresPesoX_Xprima[1] * 1 +
+        erroresPesoX_Xprima[2] * 2 +
+        erroresPesoX_Xprima[3] * 3 +
+        erroresPesoX_Xprima[4] * 4 +
+        erroresPesoX_Xprima[5] * 5 +
+        erroresPesoX_Xprima[6] * 6 +
+        erroresPesoX_Xprima[7] * 7 +
+        erroresPesoX_Xprima[8] * 8;
+
+    float bitsTotales = 0;
+    bitsTotales =
+        erroresPesoX_Xprima[0] * 8 +
+        erroresPesoX_Xprima[1] * 8 +
+        erroresPesoX_Xprima[2] * 8 +
+        erroresPesoX_Xprima[3] * 8 +
+        erroresPesoX_Xprima[4] * 8 +
+        erroresPesoX_Xprima[5] * 8 +
+        erroresPesoX_Xprima[6] * 8 +
+        erroresPesoX_Xprima[7] * 8 +
+        erroresPesoX_Xprima[8] * 8;
+
+    float symError = 0;
+    symError =
+        erroresPesoA_Adeco[1] * 1 +
+        erroresPesoA_Adeco[2] * 2 +
+        erroresPesoA_Adeco[3] * 3 +
+        erroresPesoA_Adeco[4] * 4 +
+        erroresPesoA_Adeco[5] * 5 +
+        erroresPesoA_Adeco[6] * 6 +
+        erroresPesoA_Adeco[7] * 7 +
+        erroresPesoA_Adeco[8] * 8;
+
+    printf("\nBits totales = %f", bitsTotales);
+    printf("\nBits en error = %f", bitsEnError);
+    printf("\nP = %f / %f  =%f",bitsEnError, bitsTotales, (bitsEnError / bitsTotales));
+    printf("\nPerr = %f / %f = %f",(float)erroresPesoX_Xdeco[4],(float)(erroresPesoX_Xdeco[0] + erroresPesoX_Xdeco[4]), ((float)erroresPesoX_Xdeco[4] / (float)(erroresPesoX_Xdeco[0] + erroresPesoX_Xdeco[4])));
+    printf("\nPsym = %f / %f = %f",symError, (bitsTotales/2), (symError/(bitsTotales/2)));
 
     fclose(fpCodificados);
     fclose(fpRecibidos);
